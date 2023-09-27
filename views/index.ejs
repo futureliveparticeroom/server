@@ -29,22 +29,22 @@
     <div class="corner-svg bottom-right">
         <img src="/public/ui-04.svg"  />
     </div>
-    <% videos.forEach(function(video,index) { %>
+    <% video.forEach(function(video,index) { %>
         <video id="video<%= index + 1 %>" muted autoplay loop controls crossOrigin = "anonymous" width="1">
-            <source src="<%= video %>" type="video/webm">
+            <source src="http://165.227.122.172:3002<%= video %>" type="video/webm">
         </video>
     <% }) %>
     <script>
     function updateVideos() {
     fetch('/get-latest-videos')
     .then(response => response.json())
-    .then(videos => {
-      videos.forEach((videoSrc, index) => {
+    .then(video => {
+      video.forEach((videoSrc, index) => {
         const videoElement = document.getElementById('video' + (index + 1));
         if (videoElement) {
           const sourceElement = videoElement.querySelector('source');
           videoElement.crossOrigin = "anonymous"; 
-          sourceElement.src = videoSrc;
+          sourceElement.src = 'http://165.227.122.172:3002'+videoSrc;
           videoElement.load(); 
           
         }
@@ -54,7 +54,7 @@
 }
 
 
-setInterval(updateVideos, 1000);
+setInterval(updateVideos, 10000);
     </script>
 </body>
 </html>
